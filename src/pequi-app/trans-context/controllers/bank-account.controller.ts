@@ -1,6 +1,6 @@
 import * as express from 'express'
 import {inject} from 'inversify';
-import {controller, httpPost, request, response} from 'inversify-express-utils'
+import {controller, httpGet, httpPost, request, response} from 'inversify-express-utils'
 import TYPES from '../../shared/types';
 import {BankAccountService} from "../services/bank-account.service";
 import {BankAccountCommand} from "../models/entities/commands/bank-accout.command";
@@ -11,6 +11,12 @@ export class BankAccountController {
 
     @inject(TYPES.BankAccountService)
     private bankAccountService: BankAccountService
+
+    @httpGet("/")
+    public async getAll(@request() req: express.Request, @response() res: express.Response){
+        let accounts = await this.bankAccountService.getAll()
+        res.status(200).send({ cuentas: accounts })
+    }
 
     @httpPost("/")
     public async banckAccount(@request() req: express.Request, @response() res: express.Response) {

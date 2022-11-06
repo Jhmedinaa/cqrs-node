@@ -8,7 +8,7 @@ import errorHandler from "errorhandler"
 import { getRouteInfo, InversifyExpressServer } from "inversify-express-utils"
 import container from "./container"
 import * as prettyjson from "prettyjson";
-import { CommandDataSource } from "./data-source";
+import { CommandDataSource, QueryDataSource } from "./data-source";
 
 export class Server {
 
@@ -55,6 +55,7 @@ export class Server {
     }
 
     private async getDataBase() {
+        //Conexion con el command data baase
         CommandDataSource
             .initialize()
             .then(() => {
@@ -62,6 +63,15 @@ export class Server {
             })
             .catch((err:any) => {
                 console.error("Error al abrir base de datos!", err)
+            });
+
+        QueryDataSource
+            .initialize()
+            .then(() => {
+                console.log("Query Database Started!")
+            })
+            .catch((err:any) => {
+                console.error("Exception in query database", err)
             });
     }
 }

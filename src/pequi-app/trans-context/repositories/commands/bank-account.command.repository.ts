@@ -1,8 +1,20 @@
-import { BankAccountCommand } from "../../models/entities/commands/bank-accout.command"
+import {BankAccountCommand} from "../../models/entities/commands/bank-accout.command"
 
-export interface BankAccountCommandRepository{
-    saveAccountBank(bankAcount: BankAccountCommand): Promise<void> 
-    updateAccountBank(): Promise<void>
-    deleteAccountBank(): Promise<void>
+export interface BankAccountCommandRepository {
+
+    /**
+    registrar nueva cuenta
+    */
+    saveAccountBank(bankAcount: BankAccountCommand): Promise<void>
+
+    /*
+    se utiliza para actualizar
+    */
+    updateAccountBank(bankAccount: BankAccountCommand): Promise<void>
+
+    /**
+    Se utiliza para Eliminar
+    */
+    deleteAccountBank(id: number): Promise<void>
 
 }
