@@ -6,6 +6,7 @@ import {BankAccountService} from "./bank-account.service";
 import {throws} from "assert";
 import { BankAccountQuery } from "../models/entities/query/bank-account.query";
 import { BankAccountQueryRepository } from "../repositories/query/bank-account.query.repository";
+import { QueryDataSource } from "../../shared/data-source";
 
 @injectable()
 export class BankAccountServiceImpl implements BankAccountService {
@@ -33,8 +34,28 @@ export class BankAccountServiceImpl implements BankAccountService {
         }
     }
 
-    updateAccountBank(): Promise<void> {
-        throw new Error("Method not implemented.");
+    public async updateAccountBank(_bankAccount: BankAccountCommand): Promise<void> {
+      
+        await this.queryRepository.findOneByAccount(_bankAccount.accountNo)
+                .then((bankAccount) => { 
+                    console.log(bankAccount)
+                    if (!bankAccount) { throw new Error("La cuenta no existe") };
+            
+                    let banckAccountCommand = new BankAccountCommand();
+                    banckAccountCommand.id = +bankAccount.id.toString()
+                    console.log( banckAccountCommand)
+                    banckAccountCommand.balance = _bankAccount.balance
+                    banckAccountCommand.user = _bankAccount.user
+                    banckAccountCommand.state = _bankAccount.state
+                    banckAccountCommand.accountNo = bankAccount.accountNo
+
+                    return this.commandRepository.updateAccountBank(banckAccountCommand)
+                }).catch((e) => {throw e})
+          
+           
+
+           
+       
     }
 
     deleteAccountBank(): Promise<void> {

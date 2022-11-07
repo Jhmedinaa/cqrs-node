@@ -3,12 +3,15 @@ import { BankAccountCommand } from "../trans-context/models/entities/commands/ba
 import { BankAccountQuery } from "../trans-context/models/entities/query/bank-account.query";
 
 export const CommandDataSource = new DataSource({
-    type: "mongodb",
+    type: "postgres",
     host: "localhost",
-    port: 27017,
+    port: 5432,
+    username: "jmedina",
+    password: "1234",
     database: "commandbank",
     entities: [BankAccountCommand],
-    synchronize: false
+    synchronize: false,
+    logging: true
 })
 
 export const QueryDataSource = new DataSource({

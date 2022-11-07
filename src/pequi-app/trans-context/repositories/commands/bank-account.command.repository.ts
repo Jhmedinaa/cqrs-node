@@ -15,6 +15,6 @@ export interface BankAccountCommandRepository {
     /**
     Se utiliza para Eliminar
     */
-    deleteAccountBank(id: number): Promise<void>
+    deleteAccountBank(bankAcount: BankAccountCommand): Promise<void>
 
 }

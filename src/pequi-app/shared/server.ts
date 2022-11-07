@@ -59,10 +59,10 @@ export class Server {
         CommandDataSource
             .initialize()
             .then(() => {
-                console.log("Base de datos iniciada!")
+                console.log("Command Database Started!")
             })
             .catch((err:any) => {
-                console.error("Error al abrir base de datos!", err)
+                console.error("Exception in command database", err)
             });
 
         QueryDataSource

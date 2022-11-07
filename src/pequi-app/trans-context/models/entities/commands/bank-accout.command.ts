@@ -1,11 +1,11 @@
-import { Column, Entity, ObjectID, ObjectIdColumn} from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, } from "typeorm";
 import { AccountState } from "../../../domain/vo/accout.state.vo";
 
 @Entity()
 export class BankAccountCommand  {
 
-    @ObjectIdColumn()
-    id: ObjectID;
+    @PrimaryGeneratedColumn()
+    id: number;
 
     @Column()
     balance: number;
@@ -19,7 +19,11 @@ export class BankAccountCommand  {
         })
     accountNo: string;
 
-    @Column()
+    @Column({
+        type: "enum",
+        enum: AccountState,
+        default: AccountState.ACTIVE
+    })
     state: string;
 
 

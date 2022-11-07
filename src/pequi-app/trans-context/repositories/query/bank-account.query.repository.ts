@@ -10,5 +10,5 @@ export interface BankAccountQueryRepository {
     /**
     * Consulta una cuenta por su usuario
     */
-    findOneByUserName(): Promise<BankAccountQuery[]>
+    findOneByAccount(accountNo: string): Promise<BankAccountQuery | null>
 }
